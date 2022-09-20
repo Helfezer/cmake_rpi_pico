@@ -5,7 +5,7 @@ FROM ubuntu:20.04 as generic-cmake-env
 LABEL maintainer="BCadet <https://github.com/BCadet>"
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninterractive apt-get install -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
     make \
     cmake \
     gosu

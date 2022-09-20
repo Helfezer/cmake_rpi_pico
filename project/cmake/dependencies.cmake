@@ -4,13 +4,13 @@ FetchContent_Declare(
 )
 
 FetchContent_Declare(
-    stm32-cmake
-    GIT_REPOSITORY https://github.com/ObKo/stm32-cmake.git
-    GIT_TAG v2.1.0
+    pico-sdk
+    GIT_REPOSITORY https://github.com/raspberrypi/pico-sdk.git
+    GIT_TAG master
 )
 
 FetchContent_Declare(
-    cmsis-svd
-    GIT_REPOSITORY https://github.com/posborne/cmsis-svd.git
+    pico-exemple
+    GIT_REPOSITORY https://github.com/raspberrypi/pico-examples.git
     GIT_TAG master
 )
