@@ -18,6 +18,8 @@ include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 
 set(CMAKE_BUILD_TYPE Debug)
 
+set(PICO_BOARD "pico") # set board target
+
 project (rpi_xmodem)
 
 pico_sdk_init()
