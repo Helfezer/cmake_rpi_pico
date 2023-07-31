@@ -18,7 +18,7 @@ include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(PICO_BOARD "pico") # set board target
+set(PICO_BOARD "pico_w") # set board target
 
 project (rpi_xmodem)
 
@@ -36,6 +36,11 @@ target_link_libraries(${CMAKE_PROJECT_NAME} pico_stdlib)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
+
+#Enbale output on usb and disable on uart
+pico_enable_stdio_usb(${CMAKE_PROJECT_NAME} 1)
+pico_enable_stdio_uart(${CMAKE_PROJECT_NAME} 0)
+
 
 # add url via pico_set_program_url
 # example_auto_set_url(blink)
