@@ -9,10 +9,13 @@ include(${CMAKE_CURRENT_LIST_DIR}/cmake/dependencies.cmake)
 FetchContent_MakeAvailable(gcc-arm-none-eabi-10.3-2021.10-x86_64-linux)
 set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR})
 
-FetchContent_MakeAvailable(pico-sdk)
+# FetchContent_MakeAvailable(pico-sdk)
+set(PICO_SDK_PATH ${pico-sdk_SOURCE_DIR})
+set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR})
+FetchContent_Populate(pico-sdk)
 # set(PICO_SDK_FETCH_FROM_GIT on)
 # include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
-include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
+include(${pico-sdk_SOURCE_DIR}/pico_sdk_init.cmake)
 
 # FetchContent_Populate(pico-exemple)
 
@@ -21,18 +24,28 @@ set(CMAKE_BUILD_TYPE Debug)
 set(PICO_BOARD "pico_w") # set board target
 
 project (rpi_xmodem)
-
 pico_sdk_init()
+
 # FetchContent_MakeAvailable(pico-exemple)
 
 set(PROJECT_SOURCES
-    rpi_xmodem/blink.c
+    rpi_xmodem/blink_led.c
 )
 
 add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SOURCES})
 
+# target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${PICO_SDK_PATH}/src/rp2_common/pico_cyw43_arch/include)
+# target_link_libraries(${CMAKE_PROJECT_NAME} pico_cyw43_arch)
+# target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${PICO_SDK_PATH}/src/rp2_common/pico_cyw43_driver/include)
+# target_link_libraries(${CMAKE_PROJECT_NAME} pico_cyw43_driver)
+
 # pull in common dependencies
-target_link_libraries(${CMAKE_PROJECT_NAME} pico_stdlib)
+target_link_libraries(${CMAKE_PROJECT_NAME} 
+    pico_cyw43_arch_none
+    pico_stdlib
+    pico_multicore
+    hardware_adc
+)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
