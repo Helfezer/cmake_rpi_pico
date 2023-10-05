@@ -39,6 +39,28 @@ RUN git clone https://github.com/openocd-org/openocd.git -b v0.12.0  && \
     make && \
     make install
 
+FROM ubuntu:20.04 as picotool-build-stage
+
+ARG PICOTOOL_VERSION=1.1.1
+ARG PICOTOOL_SDK_VERSION=1.5.0
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    git \
+    build-essential \
+    cmake \
+    libusb-1.0-0-dev \
+    pkg-config
+
+RUN git clone https://github.com/raspberrypi/pico-sdk.git -b ${PICOTOOL_SDK_VERSION}
+
+RUN git clone https://github.com/raspberrypi/picotool.git -b ${PICOTOOL_VERSION} && \
+    mkdir build && \
+    cd build && \
+    PICO_SDK_PATH=/pico-sdk cmake /picotool && \
+    make && \
+    make install
+
 FROM generic-cmake-env
 
 RUN apt-get update && \
@@ -61,3 +83,5 @@ COPY --from=openocd-build-stage /usr/local/share/openocd /usr/local/share/openoc
 
 RUN adduser builder plugdev
 RUN adduser builder dialout
+
+COPY --from=picotool-build-stage /usr/local/bin /usr/local/bin
