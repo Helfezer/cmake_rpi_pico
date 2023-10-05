@@ -32,7 +32,7 @@ RUN apt-get update && \
     texinfo \
     libhidapi-dev
 
-RUN git clone https://github.com/openocd-org/openocd.git -b v0.11.0 && \
+RUN git clone https://github.com/openocd-org/openocd.git -b v0.12.0  && \
     cd openocd && \
     ./bootstrap && \
     ./configure && \
