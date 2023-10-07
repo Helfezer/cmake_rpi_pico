@@ -11,10 +11,9 @@ set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR
 
 # FetchContent_MakeAvailable(pico-sdk)
 set(PICO_SDK_PATH ${pico-sdk_SOURCE_DIR})
-set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR})
+set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR}) #require to help pico_find_compiler
 FetchContent_Populate(pico-sdk)
-# set(PICO_SDK_FETCH_FROM_GIT on)
-# include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+
 include(${pico-sdk_SOURCE_DIR}/pico_sdk_init.cmake)
 
 # FetchContent_Populate(pico-exemple)
@@ -25,6 +24,10 @@ set(PICO_BOARD "pico_w") # set board target
 
 project (rpi_xmodem)
 pico_sdk_init()
+# find gdb for debugger (pico_sdk_init forget to set it).
+# see build/_deps/pico-sdk-src/cmake/preload/toolchains/pico_arm_gcc.cmake)
+pico_find_compiler(PICO_COMPILER_GDB arm-none-eabi-gdb)
+set(CMAKE_DEBUGGER ${PICO_COMPILER_GDB} CACHE FILEPATH "path to gdb") #require by launch.json
 
 # FetchContent_MakeAvailable(pico-exemple)
 
