@@ -37,11 +37,6 @@ set(PROJECT_SOURCES
 
 add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SOURCES})
 
-# target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${PICO_SDK_PATH}/src/rp2_common/pico_cyw43_arch/include)
-# target_link_libraries(${CMAKE_PROJECT_NAME} pico_cyw43_arch)
-# target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${PICO_SDK_PATH}/src/rp2_common/pico_cyw43_driver/include)
-# target_link_libraries(${CMAKE_PROJECT_NAME} pico_cyw43_driver)
-
 # pull in common dependencies
 target_link_libraries(${CMAKE_PROJECT_NAME} 
     pico_cyw43_arch_none
@@ -54,8 +49,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
 
 #Enbale output on usb and disable on uart
-pico_enable_stdio_usb(${CMAKE_PROJECT_NAME} 1)
-pico_enable_stdio_uart(${CMAKE_PROJECT_NAME} 0)
+# pico_enable_stdio_usb(${CMAKE_PROJECT_NAME} 1)
+# pico_enable_stdio_uart(${CMAKE_PROJECT_NAME} 0)
 
 
 # add url via pico_set_program_url
