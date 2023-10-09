@@ -3,11 +3,22 @@
 #include "pico/multicore.h"
 #include "hardware/irq.h"
 #include "hardware/adc.h"
+#include "hardware/uart.h"
 #include "stdio.h"
 #include "pico/cyw43_arch.h"
 
 //Unlike the original Raspberry Pi Pico, the on-board LED on Pico W is not connected 
 //to a pin on RP2040, but instead to a GPIO pin on the wireless chip
+
+#define UART_ID uart1
+#define BAUD_RATE 115200
+
+// We are using pins 0 and 1, but see the GPIO function select table in the
+// datasheet for information on which other pins can be used.
+#define UART_TX_PIN 4
+#define UART_RX_PIN 5
+
+
 
 void core1_interrupt_handler()
 {
@@ -49,7 +60,12 @@ int main() {
 
     sleep_ms(1);
 
-    multicore_launch_core1(core1_entry); //start core1
+    // multicore_launch_core1(core1_entry); //start core1
+
+    //configure uart 2
+    uart_init(UART_ID, BAUD_RATE);
+    gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+    gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
     //Configure ADC
     adc_init();
@@ -63,6 +79,7 @@ int main() {
         sleep_ms(1000);
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, !cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN));
         printf("status %d \n\r", cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN)); //status 0 = eteint | 1 = allumer
+        uart_puts(UART_ID, "Hello, UART!\n\r");
 
     }
 }
