@@ -73,6 +73,7 @@ RUN apt-get update && \
     vim \
     build-essential \
     minicom \
+    cu \
     libnewlib-arm-none-eabi \
     libstdc++-arm-none-eabi-newlib \
     python3

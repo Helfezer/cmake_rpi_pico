@@ -9,7 +9,6 @@ include(${CMAKE_CURRENT_LIST_DIR}/cmake/dependencies.cmake)
 FetchContent_MakeAvailable(gcc-arm-none-eabi-10.3-2021.10-x86_64-linux)
 set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR})
 
-# FetchContent_MakeAvailable(pico-sdk)
 set(PICO_SDK_PATH ${pico-sdk_SOURCE_DIR})
 set(PICO_TOOLCHAIN_PATH ${gcc-arm-none-eabi-10.3-2021.10-x86_64-linux_SOURCE_DIR}) #require to help pico_find_compiler
 FetchContent_Populate(pico-sdk)

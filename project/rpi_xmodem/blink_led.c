@@ -56,23 +56,13 @@ int main() {
     adc_set_temp_sensor_enabled(true);
     adc_select_input(4); 
 
-
     while (true) {
         uint16_t raw = adc_read();
         // multicore_fifo_push_blocking(raw);
 
         sleep_ms(1000);
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
-        printf("status %d \n\r", cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN));
-        sleep_ms(1000);
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
-        printf("status %d \n\r", cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN));
-        // cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
-        // printf("LED ON\n\r");
-        // sleep_ms(1000);
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, !cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN));
+        printf("status %d \n\r", cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN)); //status 0 = eteint | 1 = allumer
 
-        // cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
-        // printf("LED OFF\n\r");
-        // sleep_ms(1000);
     }
 }
