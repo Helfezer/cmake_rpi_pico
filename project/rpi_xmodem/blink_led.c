@@ -39,11 +39,14 @@ void core1_entry()
 {
     printf("starting core 1\n\r");
     multicore_fifo_clear_irq();
-    irq_set_exclusive_handler(SIO_IRQ_PROC1, core1_interrupt_handler);
-    irq_set_enabled(SIO_IRQ_PROC1, true);
-
+    // irq_set_exclusive_handler(SIO_IRQ_PROC1, core1_interrupt_handler);
+    // irq_set_enabled(SIO_IRQ_PROC1, true);
+    uint_t occurence = 0;
     while(1)
     {
+
+        uart_puts(UART_ID, "Hello, UART %d!\n\r", occurence);
+        occurence ++;
         tight_loop_contents();
     }
 
@@ -60,7 +63,7 @@ int main() {
 
     sleep_ms(1);
 
-    // multicore_launch_core1(core1_entry); //start core1
+    multicore_launch_core1(core1_entry); //start core1
 
     //configure uart 2
     uart_init(UART_ID, BAUD_RATE);
@@ -79,7 +82,5 @@ int main() {
         sleep_ms(1000);
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, !cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN));
         printf("status %d \n\r", cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN)); //status 0 = eteint | 1 = allumer
-        uart_puts(UART_ID, "Hello, UART!\n\r");
-
     }
 }
