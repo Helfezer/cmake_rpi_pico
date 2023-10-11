@@ -41,11 +41,13 @@ void core1_entry()
     multicore_fifo_clear_irq();
     // irq_set_exclusive_handler(SIO_IRQ_PROC1, core1_interrupt_handler);
     // irq_set_enabled(SIO_IRQ_PROC1, true);
-    uint_t occurence = 0;
+
+    uint8_t occurence = 0;
+    char s[18] = {0};
     while(1)
     {
-
-        uart_puts(UART_ID, "Hello, UART %d!\n\r", occurence);
+        sprintf(s, "Hello, UART %d!\n\r", occurence);
+        uart_puts(UART_ID, s);
         occurence ++;
         tight_loop_contents();
     }
