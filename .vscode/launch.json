@@ -17,6 +17,7 @@
             "servertype": "openocd",
             "runToEntryPoint": "main",
             "svdFile": "${input:SVDfile}",
+            "numberOfProcessors": 2,
             "configFiles": [
                 "${workspaceRoot}/project/openocd.cfg",
             ],
@@ -33,6 +34,7 @@
             "servertype": "openocd",
             "runToEntryPoint": "main",
             "svdFile": "${input:SVDfile}",
+            "numberOfProcessors": 2,
             "configFiles": [
                 "${workspaceRoot}/project/openocd.cfg",
             ],
@@ -51,6 +53,7 @@
             "gdbTarget": "${input:gdbTarget}",
             "runToEntryPoint": "main",
             "svdFile": "${input:SVDfile}",
+            "numberOfProcessors": 2,
             "configFiles": [
                 "${workspaceRoot}/project/openocd.cfg",
             ],
@@ -68,6 +71,7 @@
             "gdbTarget": "${input:gdbTarget}",
             "runToEntryPoint": "main",
             "svdFile": "${input:SVDfile}",
+            "numberOfProcessors": 2,
             "configFiles": [
                 "${workspaceRoot}/project/openocd.cfg",
             ],
