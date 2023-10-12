@@ -17,6 +17,12 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "reset",
+            "type":"shell",
+            "command": "bash",
+            "args": ["${workspaceFolder}/.vscode/reset.sh"]
         }
     ]
 }

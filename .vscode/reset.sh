@@ -1,0 +1,1 @@
+openocd -f /workspaces/cmake_rpi_pico/project/openocd_reset.cfg
